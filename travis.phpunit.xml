@@ -21,16 +21,16 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <file>./test.php</file>
+                <file>test.php</file>
                 <!-- Provides only exception types -->
-                <file>./PassMan/PasswordManagerException.php</file>
-                <file>./PassMan/Strategy/AlgorithmException.php</file>
+                <file>PassMan/PasswordManagerException.php</file>
+                <file>PassMan/Strategy/AlgorithmException.php</file>
                 
                 <!-- Provides only interface -->
-                <file>./PassMan/Strategy/HashingStrategy.php</file>
-                <directory>./test</directory>
-                <directory>./test/build</directory>
-                <directory>./vendor</directory>
+                <file>PassMan/Strategy/HashingStrategy.php</file>
+                <directory>test</directory>
+                <directory>build</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>

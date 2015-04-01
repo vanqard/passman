@@ -48,7 +48,7 @@ class PasswordManager
      * @param unknown $algorithmConstant
      * @param array $options
      * @throws PasswordManagerException
-     * @return \Vanqard\PassMan\Algorithm\AlgorithmInterface
+     * @return \Vanqard\PassMan\PasswordManager
      */
     public static function factory($algorithmConstant, array $options = [])
     {

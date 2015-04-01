@@ -21,7 +21,7 @@ The goal of this package then is to provide a ready made, object oriented implem
 
 ## Acknowledgements
 
-This work is inspired by Anthony Ferrara's password hash compatibility library. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. 
+This work is inspired by PHP's procedural password_* functions and Anthony Ferrara's password hash compatibility library for older language versions. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. 
 
 ## Requirements
 

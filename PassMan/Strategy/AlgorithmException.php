@@ -1,5 +1,5 @@
 <?php
-namespace Vanqard\PassMan\Algorithm;
+namespace Vanqard\PassMan\Strategy;
 
 /**
  * Class definition for the AlgorithmException

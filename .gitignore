@@ -1,6 +1,4 @@
-.buildpath
-.cache/
-.project
-.settings/
+build
+test
 vendor
 composer.lock

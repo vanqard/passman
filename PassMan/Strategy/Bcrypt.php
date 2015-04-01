@@ -1,8 +1,8 @@
 <?php
-namespace Vanqard\PassMan\Algorithm;
+namespace Vanqard\PassMan\Strategy;
 
-use Vanqard\PassMan\Algorithm\HashingStrategy;
-use Vanqard\PassMan\Algorithm\AlgorithmException;
+use Vanqard\PassMan\Strategy\HashingStrategy;
+use Vanqard\PassMan\Strategy\AlgorithmException;
 
 /**
  * Class definition for the Bcrypt implementation of the HashingStrategy
@@ -44,11 +44,11 @@ class Bcrypt implements HashingStrategy
     }
     
     /**
-     * Options array setter for this algorithm. Presently only accepts a cost option
+     * Options array setter for this algorithm strategy. Presently only accepts a cost option
      *
      * @param array $options
-     * @see \Vanqard\PassMan\Algorithm\HashingStrategy::setOptions()
-     * @throws \Vanqard\PassMan\Algorithm\AlgorithmException
+     * @see \Vanqard\PassMan\Strategy\HashingStrategy::setOptions()
+     * @throws \Vanqard\PassMan\Strategy\AlgorithmException
      * @return boolean
      */
     public function setOptions(array $options = [])
@@ -72,7 +72,7 @@ class Bcrypt implements HashingStrategy
         }
         
         // No other options considered for this algo
-        return true;
+        return $this;
     }
     
     /**
@@ -80,7 +80,7 @@ class Bcrypt implements HashingStrategy
      * as the underlying function will provide a much more secure dynamic salt
      * 
      * @param string $optionName
-     * @see \Vanqard\PassMan\Algorithm\HashingStrategy::getOption()
+     * @see \Vanqard\PassMan\Strategy\HashingStrategy::getOption()
      * @return mixed  - different algorithms may return different data types from getOption()
      */
     public function getOption($optionName = 'cost')

@@ -2,8 +2,8 @@
 namespace Vanqard\PassMan;
 
 use Vanqard\PassMan\PasswordManagerException;
-use Vanqard\PassMan\Algorithm\HashingStrategy;
-use Vanqard\PassMan\Algorithm\Bcrypt;
+use Vanqard\PassMan\Strategy\HashingStrategy;
+use Vanqard\PassMan\Strategy\Bcrypt;
 
 /**
  * Class definition for the Vanqard\PassMan\PasswordManager class
@@ -69,7 +69,7 @@ class PasswordManager
     }
     
     /**
-     * Proxies the password hash request to the specific algorithm instance
+     * Proxies the password hash request to the specific algorithm strategy instance
      * in use. 
      * 
      * Example usage

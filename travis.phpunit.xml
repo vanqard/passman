@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+        >
+
+    <testsuites>
+        <testsuite name="Password Generator test suite">
+            <directory suffix="Test.php">./test/Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <file>./test.php</file>
+                <!-- Provides only exception types -->
+                <file>./PassMan/PasswordManagerException.php</file>
+                <file>./PassMan/Strategy/AlgorithmException.php</file>
+                
+                <!-- Provides only interface -->
+                <file>./PassMan/Strategy/HashingStrategy.php</file>
+                <directory>./test</directory>
+                <directory>./test/build</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+</phpunit>

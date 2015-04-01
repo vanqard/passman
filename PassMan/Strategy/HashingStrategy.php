@@ -1,8 +1,8 @@
 <?php
-namespace Vanqard\PassMan\Algorithm;
+namespace Vanqard\PassMan\Strategy;
 
 /**
- * Interface specification for the Algorithm implementations consumed by the 
+ * Interface specification for the Algorithm strategy implementations consumed by the 
  * PasswordManager instance in this package 
  * 
  * @author Thunder Raven-Stoker <thunder@vanqard.com>

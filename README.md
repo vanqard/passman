@@ -20,11 +20,12 @@ In order to use the ```password_hash()``` functions, this library requires ```PH
 
 ## Installation
 
-This package should be installed via composer. Please see [vanqard/passman](http://packagist.org/packages/vanqard/passman).
+This package should be installed via composer. Please see [vanqard/passman](http://packagist.org/packages/vanqard/passman).  (coming soon)
 
 The recommended approach is simple to add the following require line
 
     "vanqard/passman": "*"
+
 
 ## Checking your environment
 
@@ -53,7 +54,7 @@ Ideally, you are looking for a cost value that will result in a hashing time of 
 
 Now that you have installed the package, you will then need to obtain a ```PasswordManager``` that has been seeded with the appropriate hashing algorithm. The PasswordManager class exposes a simple factory method to facilitate this. 
 
-The factory method expects an algorithm identifier (based on the PASSWORD_* constants) and optionally an array of options for that algorithm. 
+The factory method expects an algorithm identifier (based on the PASSWORD_* constants) and optionally an array of options for that algorithm. It is expected that your application will supply these config options by whatever mechanism you would normally employ.
 
 
     use Vanqard\PassMan\PasswordManager;
@@ -61,7 +62,7 @@ The factory method expects an algorithm identifier (based on the PASSWORD_* cons
     $defaultType = PASSWORD_DEFAULT;
     $defaultOptions = ["cost" => 10];
     
-    $passwordManager = new PasswordManager($bcryptType, $bcryptOptions);
+    $passwordManager = PasswordManager::factory($bcryptType, $bcryptOptions);
     
 Once you have your PasswordManager instance, you will then be able to access the relevant methods. The method names are PSR-1 compliant camelCased versions of the native functions names. 
 
@@ -74,17 +75,17 @@ Once you have your PasswordManager instance, you will then be able to access the
 
 ### Creating password hashes
 
-When you receive a password that needs hashing, you would call the password() method, like this
+When you receive a password that needs hashing, you would call the passwordHash() method, like this
 
     $userPassword = $_POST['password'];
     
     $hashedPassword = $passwordManager->passwordHash($userPassword);
     
-You would then store the $hashedPassword value in your database in the user way.
+You would then store the $hashedPassword value in your database as you would normally.
 
 ### Verifying passwords
 
-When a user wants to log in, your code will need to confirm that the password that they supply is the correct one. In this case, you will use the passwordVerify() method to retrieve a boolean true return value for a positive match or a false when the password password does not match the hashed version that you have stored. 
+When a user wants to log in, your code will need to confirm that the password that they supply is the correct one. In this case, you will use the passwordVerify() method to retrieve a boolean true return value for a positive match or a false when the provided password does not match the hashed version that you have stored. 
 
     $userPassword = $_POST['password'];
     $storedHash = $dbResult['password_hash'];
@@ -104,13 +105,13 @@ From time to time, you may decide that you need to update your hashing parameter
 
 In this circumstance, you would amend your code to reflect the new hashing parameters, but still bear in mind that the values stored in your database will have been created using the old ones.
 
-This function will allow you to incrementally update the algorithm/cost values of your users' password *as they log in*. This will help you to avoid forcing a system wide password reset, which would otherwise be quite disruptive to your users' experience. 
+This function will allow you to incrementally update the algorithm/cost values of your users' passwords *as they log in*. This will help you to avoid forcing a system wide password reset, which would otherwise be quite disruptive to your users' experience. 
 
 The basic form of the method is thus:
 
     $boolean = $passwordManager->passwordNeedsRehash($storedHash);
     
-And in common usage, you would employ it like this:
+And in common usage, you would employ it during the log in process like this:
 
     // During the login process
     $userPassword = $_POST['password'];

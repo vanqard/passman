@@ -4,7 +4,7 @@ This library provides an object oriented wrapper context around the password_has
 
 ## Motivation
 
-This package exists to simplify following current best practice with regard to the hashing of user passwords. The current absence of an OO context for the password_hash() functions results in developers having to write their own, sometimes incorrect logic to employ those very functions. 
+This package exists to simplify following current best practice with regard to the hashing of user passwords. The current absence of an object context for the password_hash() functions results in developers having to write their own, sometimes incorrect, logic to employ those very functions. 
 
 The goal of this package then is to provide a ready made, object oriented implementation that can be community curated for best practice. 
 

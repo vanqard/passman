@@ -54,7 +54,7 @@ class Bcrypt implements AlgorithmInterface
     public function setOptions(array $options = [])
     {
         if (empty($options)) {
-            return;
+            $options['cost'] = self::VPM_BCRYPT_DEFAULT_COST;
         }
         
         if (array_key_exists('cost', $options) && is_numeric($options['cost'])) {
@@ -81,7 +81,7 @@ class Bcrypt implements AlgorithmInterface
      * 
      * @param string $optionName
      * @see \Vanqard\PassMan\Algorithm\AlgorithmInterface::getOption()
-     * @return mixed different algorithms may return different data types from getOption()
+     * @return mixed  - different algorithms may return different data types from getOption()
      */
     public function getOption($optionName = 'cost')
     {

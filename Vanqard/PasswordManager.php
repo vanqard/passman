@@ -6,7 +6,7 @@ use Vanqard\PassMan\Algorithm\AlgorithmInterface;
 use Vanqard\PassMan\Algorithm\Bcrypt;
 
 /**
- * Class definition for the Vanqard\PasswordManager class
+ * Class definition for the Vanqard\PassMan\PasswordManager class
  * 
  * Provides an object oriented wrapper context around the password_hash() function,
  * and deliberately disables the user supplied salt facility to encourage the use of
@@ -25,9 +25,11 @@ class PasswordManager
     private $algorithm;
     
     /**
-     * Class constructor - optionally provide the system wide 'cost' value to use
+     * Class constructor
      * 
-     * @param number $cost
+     * Requires the appropriate algorithm adapter to be passed in
+     * 
+     * @param AlgorithmInterface
      * @throws PasswordManagerException
      */
     public function __construct(AlgorithmInterface $algorithm)
@@ -41,7 +43,7 @@ class PasswordManager
      * 
      * Example usage
      * 
-     *   $passwordManager = Vanqard\PasswordManager::factory(PASSWORD_BCRYPT, ["cost" => 10]);
+     *   $passwordManager = Vanqard\PassMan\PasswordManager::factory(PASSWORD_BCRYPT, ["cost" => 10]);
      * 
      * @param unknown $algorithmConstant
      * @param array $options
@@ -52,7 +54,7 @@ class PasswordManager
     {
         switch ( $algorithmConstant) {
 
-        	case PASSWORD_DEFAULT: // Default will need to be moved when new algos become available
+        	case PASSWORD_DEFAULT: // Default case will need to be moved when new algos become available and assigned as default
         	case PASSWORD_BCRYPT:
         	    $algorithm = new Bcrypt($options);
         	    break;

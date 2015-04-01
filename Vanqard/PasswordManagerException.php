@@ -21,5 +21,4 @@ class PasswordManagerException extends \RuntimeException
      * @var integer
      */
     const VPM_ERROR_CODE_COST_NOT_INTEGER = 512;
-    
 }

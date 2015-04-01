@@ -9,7 +9,7 @@ namespace Vanqard\PassMan\Algorithm;
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright 2015 Thunder Raven-Stoker
  */
-interface AlgorithmInterface
+interface HashingStrategy
 {
     /**
      * @param array $options

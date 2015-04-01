@@ -2,7 +2,7 @@
 namespace Vanqard\PassMan;
 
 use Vanqard\PassMan\PasswordManagerException;
-use Vanqard\PassMan\Algorithm\AlgorithmInterface;
+use Vanqard\PassMan\Algorithm\HashingStrategy;
 use Vanqard\PassMan\Algorithm\Bcrypt;
 
 /**
@@ -20,7 +20,7 @@ use Vanqard\PassMan\Algorithm\Bcrypt;
 class PasswordManager
 {
     /**
-     * @var AlgorithmInterface
+     * @var HashingStrategy
      */
     private $algorithm;
     
@@ -29,10 +29,10 @@ class PasswordManager
      * 
      * Requires the appropriate algorithm adapter to be passed in
      * 
-     * @param AlgorithmInterface
+     * @param HashingStrategy
      * @throws PasswordManagerException
      */
-    public function __construct(AlgorithmInterface $algorithm)
+    public function __construct(HashingStrategy $algorithm)
     {
         $this->algorithm = $algorithm;
     }

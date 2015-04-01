@@ -1,17 +1,17 @@
 <?php
 namespace Vanqard\PassMan\Algorithm;
 
-use Vanqard\PassMan\Algorithm\AlgorithmInterface;
+use Vanqard\PassMan\Algorithm\HashingStrategy;
 use Vanqard\PassMan\Algorithm\AlgorithmException;
 
 /**
- * Class definition for the Bcrypt implementation of the AlgorithmInterface
+ * Class definition for the Bcrypt implementation of the HashingStrategy
  * 
  * @author Thunder Raven-Stoker <thunder@vanqard.com>
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright 2015 Thunder Raven-Stoker
  */
-class Bcrypt implements AlgorithmInterface
+class Bcrypt implements HashingStrategy
 {
     /**
      * @var integer
@@ -47,7 +47,7 @@ class Bcrypt implements AlgorithmInterface
      * Options array setter for this algorithm. Presently only accepts a cost option
      *
      * @param array $options
-     * @see \Vanqard\PassMan\Algorithm\AlgorithmInterface::setOptions()
+     * @see \Vanqard\PassMan\Algorithm\HashingStrategy::setOptions()
      * @throws \Vanqard\PassMan\Algorithm\AlgorithmException
      * @return boolean
      */
@@ -80,7 +80,7 @@ class Bcrypt implements AlgorithmInterface
      * as the underlying function will provide a much more secure dynamic salt
      * 
      * @param string $optionName
-     * @see \Vanqard\PassMan\Algorithm\AlgorithmInterface::getOption()
+     * @see \Vanqard\PassMan\Algorithm\HashingStrategy::getOption()
      * @return mixed  - different algorithms may return different data types from getOption()
      */
     public function getOption($optionName = 'cost')

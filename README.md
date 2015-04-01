@@ -2,7 +2,9 @@
 
 This library provides an object oriented wrapper context around the password_hash() functions that are either natively provided in PHP5.5+ or available via Anthony Ferrara's password_compatibility library.
 
-## Motivation
+## Intent
+
+To provide a simple to use, lightweight, framework agnostic package that complies with the underlying password_hash() functions that it consumes, whilst also exposing an object oriented interface to those same functions. 
 
 This package exists to simplify following current best practice with regard to the hashing of user passwords. The current absence of an object context for the password_hash() functions results in developers having to write their own, sometimes incorrect, logic to employ those very functions. 
 
@@ -10,7 +12,7 @@ The goal of this package then is to provide a ready made, object oriented implem
 
 ## Acknowledgements
 
-This work is inspired by Anthony Ferrara's password hash compatibility library. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. I really hope he doesn't mind.
+This work is inspired by Anthony Ferrara's password hash compatibility library. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. 
 
 ## Requirements
 

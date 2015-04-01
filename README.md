@@ -1,5 +1,8 @@
 # vanqard/passman
 
+
+[![Build Status](https://travis-ci.org/vanqard/passman.svg?branch=master)](https://travis-ci.org/vanqard/passman.svg?branch=master)
+
 This library provides an object oriented wrapper context around the password_hash() functions that are either natively provided in PHP5.5+ or available via Anthony Ferrara's password_compatibility library.
 
 ## Intent
@@ -29,11 +32,18 @@ In order to use the ```password_hash()``` functions, this library requires ```PH
 
 ## Installation
 
-This package should be installed via composer. Please see [vanqard/passman](http://packagist.org/packages/vanqard/passman).  (coming soon)
+This package should be installed via composer. Please see [vanqard/passman](http://packagist.org/packages/vanqard/passman). 
 
-The recommended approach is simple to add the following require line
+This can be achieved by simply issuing the composer require command
+
+    php composer.phar require vanqard/passman
+
+Or by adding the following line to the require section of your composer.json file
+
 
     "vanqard/passman": "*"
+
+Once inside your composer.json, running composer update should ensure you have the latest successfully building tag
 
 
 ## Checking your environment

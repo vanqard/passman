@@ -8,7 +8,7 @@ To provide a simple to use, lightweight, framework agnostic package that complie
 
 This package exists to simplify following current best practice with regard to the hashing of user passwords. The current absence of an object context for the password_hash() functions results in developers having to write their own, sometimes incorrect, logic to employ those very functions. 
 
-The goal of this package then is to provide a ready made, object oriented implementation that can be community curated for best practice. 
+The goal of this package then is to provide a ready made, object oriented implementation that can be community curated for best practice. This includes disabling the ability to provide a custom salt to the underlying password_hash() function thereby ensuring that all salts are dynamically generated. 
 
 ## Acknowledgements
 

@@ -45,7 +45,7 @@ class PasswordManager
      * 
      *   $passwordManager = Vanqard\PassMan\PasswordManager::factory(PASSWORD_BCRYPT, ["cost" => 10]);
      * 
-     * @param unknown $algorithmConstant
+     * @param integer $algorithmConstant
      * @param array $options
      * @throws PasswordManagerException
      * @return \Vanqard\PassMan\PasswordManager

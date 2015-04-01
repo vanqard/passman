@@ -10,6 +10,15 @@ This package exists to simplify following current best practice with regard to t
 
 The goal of this package then is to provide a ready made, object oriented implementation that can be community curated for best practice. This includes disabling the ability to provide a custom salt to the underlying password_hash() function thereby ensuring that all salts are dynamically generated. 
 
+## Design Goals
+
+ - Super lightweight but still fully compliant
+ - Provide an object oriented context for accessing the password_* functions
+ - Framework agnostic but easy to add to any project
+ - Extensible as new PASSWORD_* algorithms become available
+ - Pre-emptively disable userland $salt provision in favour of automatic dynamic salting
+ - Encourage better password hashing practice through a simple to use interface
+
 ## Acknowledgements
 
 This work is inspired by Anthony Ferrara's password hash compatibility library. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. 

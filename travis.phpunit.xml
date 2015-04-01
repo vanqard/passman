@@ -13,7 +13,7 @@
 
     <testsuites>
         <testsuite name="Password Generator test suite">
-            <directory suffix="Test.php">./test/Unit</directory>
+            <directory suffix="Test.php">test/Unit</directory>
         </testsuite>
     </testsuites>
 
@@ -21,14 +21,13 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <file>test.php</file>
                 <!-- Provides only exception types -->
                 <file>PassMan/PasswordManagerException.php</file>
                 <file>PassMan/Strategy/AlgorithmException.php</file>
                 
                 <!-- Provides only interface -->
                 <file>PassMan/Strategy/HashingStrategy.php</file>
-                <directory>test</directory>
+
                 <directory>build</directory>
                 <directory>vendor</directory>
             </exclude>

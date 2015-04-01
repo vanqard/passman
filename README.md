@@ -62,7 +62,7 @@ The factory method expects an algorithm identifier (based on the PASSWORD_* cons
     $defaultType = PASSWORD_DEFAULT;
     $defaultOptions = ["cost" => 10];
     
-    $passwordManager = PasswordManager::factory($bcryptType, $bcryptOptions);
+    $passwordManager = PasswordManager::factory($defaultType, $defaultOptions);
     
 Once you have your PasswordManager instance, you will then be able to access the relevant methods. The method names are PSR-1 compliant camelCased versions of the native functions names. 
 

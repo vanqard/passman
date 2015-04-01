@@ -8,6 +8,10 @@ This package exists to simplify following current best practice with regard to t
 
 The goal of this package then is to provide a ready made, object oriented implementation that can be community curated for best practice. 
 
+## Acknowledgements
+
+This work is inspired by Anthony Ferrara's password hash compatibility library. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. I really hope he doesn't mind.
+
 ## Requirements
 
 In order to use the ```password_hash()``` functions, this library requires ```PHP >= 5.3.7```. This is, in itself, to comply with the minimum requirements of the [ircmaxell\password_compat](https://github.com/ircmaxell/password_compat) library that this package depends upon for PHP versions greater than 5.3.7 but less than 5.5, which includes the functions natively. 

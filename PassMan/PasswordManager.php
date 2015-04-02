@@ -65,7 +65,7 @@ class PasswordManager
         	    break;
         }
         
-        return new PasswordManager($algorithm);
+        return new static($algorithm);
     }
     
     /**

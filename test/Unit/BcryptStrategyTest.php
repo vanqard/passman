@@ -24,8 +24,8 @@ class BcryptStrategyTest extends \PHPUnit_Framework_TestCase
         $this->testHashTwelve = password_hash($this->testPassword, PASSWORD_BCRYPT, array("cost" => 12));
         
         // Estable SUTs
-        $this->bcryptStrategyTen = new Bcrypt(["cost" => 10]);
-        $this->bcryptStrategyTwelve = new Bcrypt(["cost" => 12]);
+        $this->bcryptStrategyTen = new Bcrypt(array("cost" => 10));
+        $this->bcryptStrategyTwelve = new Bcrypt(array("cost" => 12));
     }
     
     public function testControlValuesValid()

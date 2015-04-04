@@ -1,6 +1,6 @@
 {
     "name": "vanqard/passman",
-    "description": "Provides an object oriented wrapper context around the password_hash functions",
+    "description": "Super simple password hash manager for hashing password, to verify password hashes and test for the need to rehash a password. Fully compliant oo wrapper.",
     "keywords": ["password", "hashing", "password hash", "password hashing"],
     "homepage": "https://github.com/vanqard/passman",
     "license": "MIT",

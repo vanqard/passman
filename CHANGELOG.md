@@ -1,6 +1,9 @@
 # Changelog
 
 
+## 2.0.1 - Improved packagist description only
+ * In file: composer.json  (improved package descripton)
+ 
 ## 2.0.0 - Exception refactoring requires new major version
 
  * In file: PasswordManager.php

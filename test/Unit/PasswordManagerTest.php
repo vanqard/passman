@@ -61,13 +61,13 @@ class PasswordManagerTest extends \PHPUnit_Framework_TestCase
     
     public function testInstanceCanConfirmNeedsRehash()
     {
-        $this->initialiseSUT(["cost" => 12]);
+        $this->initialiseSUT(array("cost" => 12));
         $this->assertTrue($this->sut->passwordNeedsRehash($this->testHashTen));
     }
     
     public function testInstanceConfirmsNoRehash()
     {
-        $this->initialiseSUT(["cost" => 10]);
+        $this->initialiseSUT(array("cost" => 10));
         $this->assertFalse($this->sut->passwordNeedsRehash($this->testHashTen));
     }
     

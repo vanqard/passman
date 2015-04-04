@@ -31,7 +31,7 @@ class PasswordManagerTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Vanqard\PassMan\PasswordManagerException
+     * @expectedException \Vanqard\PassMan\Exception\PasswordManagerException
      */
     public function testFactoryInvalidCallThrowsException()
     {
@@ -79,5 +79,19 @@ class PasswordManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($hashInfo));
         $this->assertArrayHasKey('algo', $hashInfo);
         $this->assertArrayHasKey('algoName', $hashInfo);
+    }
+    
+    public function testIsStubable()
+    {
+        $stubbedHashValue = 'stubbedhashvalue';
+        
+        $passwordManagerStub = $this->getMockBuilder('\Vanqard\PassMan\PasswordManager')
+                                    ->disableOriginalConstructor()
+                                    ->getMock();
+        
+        $passwordManagerStub->method('passwordHash')
+                            ->willReturn($stubbedHashValue);
+             
+        $this->assertEquals($stubbedHashValue, $passwordManagerStub->passwordHash($stubbedHashValue));
     }
 }

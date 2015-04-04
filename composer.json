@@ -1,14 +1,14 @@
 {
     "name": "vanqard/passman",
     "description": "Provides an object oriented wrapper context around the password_hash functions",
-    "keywords": ["password", "hashing"],
+    "keywords": ["password", "hashing", "password hash", "password hashing"],
     "homepage": "https://github.com/vanqard/passman",
     "license": "MIT",
     "authors": [
         {
             "name": "Thunder Raven-Stoker",
             "email": "thunder@vanqard.com",
-            "homepage": "http://phpbrilliance.com"
+            "homepage": "http://phpbrilliance.com/book#author"
         }
     ],
     "require": {

@@ -1,5 +1,5 @@
 <?php
-namespace Vanqard\PassMan;
+namespace Vanqard\PassMan\Exception;
 
 /**
  * Class definition for the PasswordManagerException

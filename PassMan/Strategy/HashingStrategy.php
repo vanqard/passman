@@ -14,7 +14,7 @@ interface HashingStrategy
     /**
      * @param array $options
      */
-    public function setOptions(array $options = []);
+    public function setOptions(array $options = array());
 
     /**
      * @param string $optionName

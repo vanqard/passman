@@ -76,12 +76,24 @@ Now that you have installed the package, you will then need to obtain a ```Passw
 The factory method expects an algorithm identifier (based on the PASSWORD_* constants) and optionally an array of options for that algorithm. It is expected that your application will supply these config options by whatever mechanism you would normally employ.
 
 
+    // Simple method
     use Vanqard\PassMan\PasswordManager;
     
     $defaultType = PASSWORD_DEFAULT;
-    $defaultOptions = ["cost" => 10];
+    $defaultOptions = array("cost" => 10);
     
     $passwordManager = PasswordManager::factory($defaultType, $defaultOptions);
+    
+    // Alternative method - delayed instantiation via a DIC
+    $passManClosure = function($defaultType, $defaultOptions) {
+        return PasswordManager::factory($defaultType, $defaultOptions);
+    }
+    
+    // Slim example
+    $app->passman = $passManClosure;
+    
+    // Pimple example
+    $pimple['passman'] = $passManClosure;
     
 Once you have your PasswordManager instance, you will then be able to access the relevant methods. The method names are PSR-1 compliant camelCased versions of the native functions names. 
 

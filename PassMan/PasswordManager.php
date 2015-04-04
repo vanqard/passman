@@ -1,7 +1,7 @@
 <?php
 namespace Vanqard\PassMan;
 
-use Vanqard\PassMan\PasswordManagerException;
+use Vanqard\PassMan\Exception\PasswordManagerException;
 use Vanqard\PassMan\Strategy\HashingStrategy;
 use Vanqard\PassMan\Strategy\Bcrypt;
 
@@ -25,14 +25,15 @@ class PasswordManager
     private $algorithm;
     
     /**
-     * Class constructor
+     * Private class constructor - defer instance acquisition to the static factory method
      * 
      * Requires the appropriate algorithm adapter to be passed in
      * 
+     * @access private - use the factory method
      * @param HashingStrategy
      * @throws PasswordManagerException
      */
-    public function __construct(HashingStrategy $algorithm)
+    private function __construct(HashingStrategy $algorithm)
     {
         $this->algorithm = $algorithm;
     }
@@ -41,16 +42,20 @@ class PasswordManager
      * Simplistic factory method to return a PasswordManager instance already seeded 
      * with the algorithm instance to use
      * 
-     * Example usage
+     * Example usage (with PHP5.3.7 compliant array() declaration rather than square bracket notation)
      * 
-     *   $passwordManager = Vanqard\PassMan\PasswordManager::factory(PASSWORD_BCRYPT, ["cost" => 10]);
+     *   $passwordManager = Vanqard\PassMan\PasswordManager::factory(PASSWORD_BCRYPT, array("cost" => 10));
+     *   
+     * @final Note: This class should not be extended. As such, this method is marked final and the 
+     * return type is new self. This allows for a mocked PasswordManager in unit testing but
+     * prevents accidental or intentional corruption of the interface during normal runtime operation. 
      * 
      * @param integer $algorithmConstant
      * @param array $options
      * @throws PasswordManagerException
      * @return \Vanqard\PassMan\PasswordManager
      */
-    public static function factory($algorithmConstant, array $options = [])
+    final public static function factory($algorithmConstant = PASSWORD_DEFAULT, array $options = array())
     {
         switch ( $algorithmConstant) {
 
@@ -65,7 +70,7 @@ class PasswordManager
         	    break;
         }
         
-        return new static($algorithm);
+        return new self($algorithm);
     }
     
     /**

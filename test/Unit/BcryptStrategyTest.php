@@ -20,8 +20,8 @@ class BcryptStrategyTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         // establish control values
-        $this->testHashTen = password_hash($this->testPassword, PASSWORD_BCRYPT, ["cost" => 10]);
-        $this->testHashTwelve = password_hash($this->testPassword, PASSWORD_BCRYPT, ["cost" => 12]);
+        $this->testHashTen = password_hash($this->testPassword, PASSWORD_BCRYPT, array("cost" => 10));
+        $this->testHashTwelve = password_hash($this->testPassword, PASSWORD_BCRYPT, array("cost" => 12));
         
         // Estable SUTs
         $this->bcryptStrategyTen = new Bcrypt(["cost" => 10]);
@@ -60,21 +60,45 @@ class BcryptStrategyTest extends \PHPUnit_Framework_TestCase
     
     public function testStrategySetOptionsIsFluent()
     {
-        $this->assertInstanceOf(get_class($this->bcryptStrategyTen), $this->bcryptStrategyTen->setOptions(["cost" => 10]));
+        $this->assertInstanceOf(get_class($this->bcryptStrategyTen), $this->bcryptStrategyTen->setOptions(array("cost" => 10)));
     }
     
-    public function testStrategyAcceptsCostOption()
+    public function testStrategyAcceptsValidCostOption()
     {
-        $this->bcryptStrategyTen->setOptions(["cost" => 11]);
+        $this->bcryptStrategyTen->setOptions(array("cost" => 11));
         $this->assertEquals(11, $this->bcryptStrategyTen->getOption('cost'));
+    }
+
+    /**
+     * @expectedException \Vanqard\PassMan\Exception\AlgorithmException
+     * @expectedExceptionCode 1024
+     */
+    public function testStrategyRejectsInvalidCostOption()
+    {
+        $this->bcryptStrategyTen->setOptions(array("cost" => 99999));
+    }
+    
+    public function testStrategySetsDefaultCostWhenNotSupplied()
+    {
+        $withCost = array("cost" => 16);
+        $withoutCost = array("salt" => "ignored");
+        
+        // First confirm valid is set to no default value
+        $this->bcryptStrategyTen->setOptions($withCost);
+        $this->assertEquals(16, $this->bcryptStrategyTen->getOption('cost'));
+        
+        // Second confirm default is set to default (10) when not supplied
+        $this->bcryptStrategyTen->setOptions($withoutCost);
+        $this->assertEquals(10, $this->bcryptStrategyTen->getOption('cost'));
     }
     
     /**
-     * @expectedException \Vanqard\PassMan\Strategy\AlgorithmException
+     * @expectedException \Vanqard\PassMan\Exception\AlgorithmException
+     * @expectedExceptionCode 2048
      */
     public function testStrategyCannotYieldSaltOption()
     {
-        $this->bcryptStrategyTen->setOptions(["salt" => "mysecretsalt"]);
+        $this->bcryptStrategyTen->setOptions(array("salt" => "mysecretsalt"));
         $this->bcryptStrategyTen->getOption('salt');
     }
     

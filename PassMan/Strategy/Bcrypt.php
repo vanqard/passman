@@ -2,7 +2,7 @@
 namespace Vanqard\PassMan\Strategy;
 
 use Vanqard\PassMan\Strategy\HashingStrategy;
-use Vanqard\PassMan\Strategy\AlgorithmException;
+use Vanqard\PassMan\Exception\AlgorithmException;
 
 /**
  * Class definition for the Bcrypt implementation of the HashingStrategy
@@ -51,13 +51,13 @@ class Bcrypt implements HashingStrategy
      * @throws \Vanqard\PassMan\Strategy\AlgorithmException
      * @return boolean
      */
-    public function setOptions(array $options = [])
+    public function setOptions(array $options = array())
     {
-        if (empty($options)) {
+        if (empty($options) || !array_key_exists('cost', $options)) {
             $options['cost'] = self::VPM_BCRYPT_DEFAULT_COST;
         }
         
-        if (array_key_exists('cost', $options) && is_numeric($options['cost'])) {
+        if (is_numeric($options['cost'])) {
             
             $cost = (int) $options['cost'];
             
@@ -81,6 +81,7 @@ class Bcrypt implements HashingStrategy
      * 
      * @param string $optionName
      * @see \Vanqard\PassMan\Strategy\HashingStrategy::getOption()
+     * @throws \Vanqard\PassMan\Exception\AlgorithmException
      * @return mixed  - different algorithms may return different data types from getOption()
      */
     public function getOption($optionName = 'cost')

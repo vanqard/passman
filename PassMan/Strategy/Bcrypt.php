@@ -40,7 +40,6 @@ class Bcrypt implements HashingStrategy
     public function __construct(array $options = array())
     {
         $this->setOptions($options);
-        
     }
     
     /**
@@ -49,7 +48,7 @@ class Bcrypt implements HashingStrategy
      * @param array $options
      * @see \Vanqard\PassMan\Strategy\HashingStrategy::setOptions()
      * @throws \Vanqard\PassMan\Strategy\AlgorithmException
-     * @return boolean
+     * @return \Vanqard\PassMan\Strategy\HashingStrategy fluent interface
      */
     public function setOptions(array $options = array())
     {

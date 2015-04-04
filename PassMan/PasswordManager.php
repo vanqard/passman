@@ -31,7 +31,6 @@ class PasswordManager
      * 
      * @access private - use the factory method
      * @param HashingStrategy
-     * @throws PasswordManagerException
      */
     private function __construct(HashingStrategy $algorithm)
     {

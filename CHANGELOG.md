@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.0.2 - Mod version requirement of ircmaxell/password-compat
+ * In file: composer.json - removed wildcard * version requirement and replaced with ^1.0.4
 
 ## 2.0.1 - Improved packagist description only
  * In file: composer.json  (improved package descripton)

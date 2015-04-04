@@ -16,11 +16,11 @@ class PasswordManagerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         // establish control values
-        $this->testHashTen = password_hash($this->testPassword, PASSWORD_BCRYPT, ["cost" => 10]);
-        $this->testHashTwelve = password_hash($this->testPassword, PASSWORD_BCRYPT, ["cost" => 12]);
+        $this->testHashTen = password_hash($this->testPassword, PASSWORD_BCRYPT, array("cost" => 10));
+        $this->testHashTwelve = password_hash($this->testPassword, PASSWORD_BCRYPT, array("cost" => 12));
     }
     
-    public function initialiseSUT(array $options = ["cost" => 10])
+    public function initialiseSUT(array $options = array("cost" => 10))
     {
         $this->sut = PasswordManager::factory(PASSWORD_DEFAULT, $options);
     }

@@ -98,9 +98,4 @@ abstract class AbstractPolicy implements PolicyInterface
      * @throws PolicyException
      */
     abstract public function validatePassword();
-
-    /**
-     * @return int
-     */
-    abstract public function getQualityRating();
 }

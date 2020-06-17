@@ -7,7 +7,7 @@ namespace Vanqard\PassMan\Policy;
  * Class Latin1Policy
  * @package Vanqard\PassMan\Policy
  */
-class Latin1Policy extends AbstractPolicy
+class Latin1Policy extends AbstractPolicy implements PasswordQualityInterface
 {
     /**
      * Policy constructor.
@@ -30,15 +30,6 @@ class Latin1Policy extends AbstractPolicy
         $this->setMinUpperCase($minUpperCase);
         $this->setMinNumeric($minNumeric);
         $this->setMinSymbols($minSymbols);
-    }
-
-    /**
-     * @return float|int
-     */
-    public function getQualityRating()
-    {
-        // @TODO - pending implementation
-        return 0;
     }
 
     /**
@@ -147,5 +138,14 @@ class Latin1Policy extends AbstractPolicy
         }
 
         return true;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getQualityRating()
+    {
+        // @TODO - pending implementation
+        return 0;
     }
 }

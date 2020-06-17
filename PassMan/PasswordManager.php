@@ -2,6 +2,7 @@
 namespace Vanqard\PassMan;
 
 use Vanqard\PassMan\Exception\PasswordManagerException;
+use Vanqard\PassMan\Policy\PolicyInterface;
 use Vanqard\PassMan\Strategy\HashingStrategy;
 use Vanqard\PassMan\Strategy\Bcrypt;
 
@@ -23,6 +24,11 @@ class PasswordManager
      * @var HashingStrategy
      */
     private $algorithm;
+
+    /**
+     * @var PolicyInterface
+     */
+    private $policy;
     
     /**
      * Private class constructor - defer instance acquisition to the static factory method
@@ -74,7 +80,8 @@ class PasswordManager
     
     /**
      * Proxies the password hash request to the specific algorithm strategy instance
-     * in use. 
+     * in use. Optionally validates the supplied password against a password policy instance
+     * if one has been supplied
      * 
      * Example usage
      * 
@@ -85,6 +92,10 @@ class PasswordManager
      */
     public function passwordHash($rawPassword)
     {
+        if ($this->policy instanceof PolicyInterface) {
+            $this->validateAgainstPolicy($rawPassword);
+        }
+
         return $this->algorithm->passwordHash($rawPassword);
     }
     
@@ -129,4 +140,31 @@ class PasswordManager
     {
         return password_get_info($hashedPassword);
     }
+
+    /**
+     * @param PolicyInterface $policy
+     * @return $this
+     */
+    public function setPolicy(PolicyInterface $policy)
+    {
+        $this->policy = $policy;
+        return $this;
+    }
+
+    /**
+     * @param $rawPassword
+     * @return bool
+     */
+    public function validateAgainstPolicy($rawPassword)
+    {
+        $returnValue = false;
+
+        if ($this->policy instanceof PolicyInterface) {
+            $this->policy->setRawPassword($rawPassword);
+            $returnValue = $this->policy->validatePassword();
+        }
+
+        return $returnValue;
+    }
+
 }

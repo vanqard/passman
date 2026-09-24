@@ -1,41 +1,25 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vanqard\PassMan\Policy;
 
 interface PolicyInterface
 {
-    /**
-     * @param int $minLength
-     */
-    public function setMinLength($minLength);
+    public function setMinLength(int $minLength): void;
 
-    /**
-     * @param int $minUpperCase
-     */
-    public function setMinUpperCase($minUpperCase);
+    public function setMinUpperCase(int $minUpperCase): void;
 
-    /**
-     * @param int $minLowerCase
-     */
-    public function setMinLowerCase($minLowerCase);
+    public function setMinLowerCase(int $minLowerCase): void;
 
-    /**
-     * @param int $minNumeric
-     */
-    public function setMinNumeric($minNumeric);
+    public function setMinNumeric(int $minNumeric): void;
 
-    /**
-     * @param int $minSymbols
-     */
-    public function setMinSymbols($minSymbols);
+    public function setMinSymbols(int $minSymbols): void;
 
-    /**
-     * @param int $rawPassword
-     */
-    public function setRawPassword($rawPassword);
+    public function setRawPassword(string $rawPassword): void;
 
     /**
      * @throws PolicyException
-     * @return bool
      */
-    public function validatePassword();
+    public function validatePassword(): bool;
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vanqard\PassMan\Policy;
 
 /**
@@ -8,8 +11,7 @@ namespace Vanqard\PassMan\Policy;
 interface PasswordQualityInterface
 {
     /**
-     * Yields a password strength score of between 0 and 100
-     * @return int
+     * Yields a password strength score of between 1 and 100
      */
-    public function getQualityRating();
+    public function getQualityRating(): int;
 }

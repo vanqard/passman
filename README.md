@@ -1,9 +1,9 @@
 # vanqard/passman
 
 
-[![Build Status](https://travis-ci.org/vanqard/passman.svg?branch=master)](https://travis-ci.org/vanqard/passman.svg?branch=master)
+[![Tests](https://github.com/vanqard/passman/actions/workflows/tests.yml/badge.svg)](https://github.com/vanqard/passman/actions/workflows/tests.yml)
 
-This library provides an object oriented wrapper context around the password_hash() functions that are either natively provided in PHP5.5+ or available via Anthony Ferrara's password_compatibility library.
+This library provides an object oriented wrapper context around PHP's native password_hash() function family.
 
 ## Intent
 
@@ -24,11 +24,11 @@ The goal of this package then is to provide a ready made, object oriented implem
 
 ## Acknowledgements
 
-This work is inspired by PHP's procedural password_* functions and Anthony Ferrara's password hash compatibility library for older language versions. In some cases, I have even lifted some of his README.md words directly as I thought rewriting them in my own style would be unnecessary and in many cases, I simply couldn't put the idea more succinctly or clearly. 
+This work is inspired by PHP's procedural password_* functions and, in earlier versions of this library, by Anthony Ferrara's password hash compatibility library for older language versions. Some of his README.md words were originally lifted directly, as rewriting them in a different style would have been unnecessary and in many cases they simply couldn't be put more succinctly or clearly. 
 
 ## Requirements
 
-In order to use the ```password_hash()``` functions, this library requires ```PHP >= 5.3.7```. This is, in itself, to comply with the minimum requirements of the [ircmaxell\password_compat](https://github.com/ircmaxell/password_compat) library that this package depends upon for PHP versions greater than 5.3.7 but less than 5.5, which includes the functions natively. 
+This library requires ```PHP >= 8.1```.
 
 ## Installation
 
@@ -41,7 +41,7 @@ This can be achieved by simply issuing the composer require command
 Or by adding the following line to the require section of your composer.json file
 
 
-    "vanqard/passman": "*"
+    "vanqard/passman": "^3.0"
 
 Once inside your composer.json, running composer update should ensure you have the latest successfully building tag
 
@@ -50,6 +50,7 @@ Once inside your composer.json, running composer update should ensure you have t
 
 First of all, before you start using this library in your own projects you should determine the preferred 'cost' value to use for your system. Your goal here is to make the hashing process as expensive as possible but to not impact prohibitively on your user's experience. The PHP Manual [provides a script](http://php.net/manual/en/function.password-hash.php) to allow you to benchmark your system, which I've reproduced here but modified slightly to set the target time higher than the manual's prescribed 50ms.
 
+```
     <?php
     // You may need to amend this path to locate composer's autoloader
     require('vendor/autoload.php'); 
@@ -66,6 +67,7 @@ First of all, before you start using this library in your own projects you shoul
 
     echo "Appropriate Cost Found: " . $cost . "\n";
     ?>
+```
 
 Ideally, you are looking for a cost value that will result in a hashing time of between 100 and 500 milliseconds. The higher the cost value the stronger the resulting hash will be. 
 
@@ -73,28 +75,24 @@ Ideally, you are looking for a cost value that will result in a hashing time of 
 
 Now that you have installed the package, you will then need to obtain a ```PasswordManager``` that has been seeded with the appropriate hashing algorithm. The PasswordManager class exposes a simple factory method to facilitate this. 
 
-The factory method expects an algorithm identifier (based on the PASSWORD_* constants) and optionally an array of options for that algorithm. It is expected that your application will supply these config options by whatever mechanism you would normally employ.
+The factory method expects a `Vanqard\PassMan\Strategy\Algorithm` enum case and optionally an array of options for that algorithm. `Algorithm::Bcrypt` is the default, mirroring PHP's own `PASSWORD_DEFAULT`. It is expected that your application will supply these config options by whatever mechanism you would normally employ.
 
-
+```
     // Simple method
     use Vanqard\PassMan\PasswordManager;
+    use Vanqard\PassMan\Strategy\Algorithm;
     
-    $defaultType = PASSWORD_DEFAULT;
-    $defaultOptions = array("cost" => 10);
+    $defaultType = Algorithm::Bcrypt;
+    $defaultOptions = ["cost" => 10];
     
     $passwordManager = PasswordManager::factory($defaultType, $defaultOptions);
     
-    // Alternative method - delayed instantiation via a DIC
-    $passManClosure = function($defaultType, $defaultOptions) {
+    // Alternative method - delayed instantiation via a Dependency Injection Container.
+    $passManClosure = static function($defaultType, $defaultOptions) {
         return PasswordManager::factory($defaultType, $defaultOptions);
     }
-    
-    // Slim example
-    $app->passman = $passManClosure;
-    
-    // Pimple example
-    $pimple['passman'] = $passManClosure;
-    
+```
+
 Once you have your PasswordManager instance, you will then be able to access the relevant methods. The method names are PSR-1 compliant camelCased versions of the native functions names. 
 
 | Method Name                 |  Corresponding Function   |
@@ -108,9 +106,9 @@ Once you have your PasswordManager instance, you will then be able to access the
 
 When you receive a password that needs hashing, you would call the passwordHash() method, like this
 
-    $userPassword = $_POST['password'];
-    
+``` 
     $hashedPassword = $passwordManager->passwordHash($userPassword);
+```
     
 You would then store the $hashedPassword value in your database as you would normally.
 
@@ -118,6 +116,8 @@ You would then store the $hashedPassword value in your database as you would nor
 
 When a user wants to log in, your code will need to confirm that the password that they supply is the correct one. In this case, you will use the passwordVerify() method to retrieve a boolean true return value for a positive match or a false when the provided password does not match the hashed version that you have stored. 
 
+```
+    // However you get your $_POST variables - hopefully safer than raw access!
     $userPassword = $_POST['password'];
     $storedHash = $dbResult['password_hash'];
     
@@ -125,10 +125,12 @@ When a user wants to log in, your code will need to confirm that the password th
         // successful match - you may proceed to log the user in
          
             ...
-    } else {
+
+    } else {
         // Passwords mismatch
-        throw new \RuntimeException('credentials do not match');    }
-    
+        throw new \RuntimeException('credentials do not match');
+    }
+``` 
 
 ### Rehashing passwords
 
@@ -140,10 +142,11 @@ This function will allow you to incrementally update the algorithm/cost values o
 
 The basic form of the method is thus:
 
-    $boolean = $passwordManager->passwordNeedsRehash($storedHash);
+    `$boolean = $passwordManager->passwordNeedsRehash($storedHash);`
     
 And in common usage, you would employ it during the log in process like this:
 
+```
     // During the login process
     $userPassword = $_POST['password'];
     $storedHash = $dbResult['password_hash'];
@@ -151,13 +154,20 @@ And in common usage, you would employ it during the log in process like this:
     if ($passwordManager->passwordVerify($userPassword, $storedHash)) {
         if ($passwordManager->passwordNeedsRehash($storedHash)) {
         	    $newHash = $passwordManager->passwordHash($userPassword);
-        	    // store the new hash value in the user's record        }
+        	    // store the new hash value in the user's record
+        }
         // Proceed with your login process
         
     } else {
         // Passwords mismatch
-        throw new \RuntimeException('credentials do not match');    }
-    
+        throw new \RuntimeException('credentials do not match');
+    }
+```
+
+### A note about the password quality stat.
+
+The implementation here is an extremely basic heuristic that doesn't check for dictionary words or predictable patterns. It's not a substitute for a real entropy/dictionary-based estimator (e.g. zxcvbn). Use at your own risk or ideally, implement a proper password quality testing algorithm. 
+
 ### Security Vulnerabilities
 
 If you have found any security issues with this code, please contact the author directly at [thunder@vanqard.com](mailto:thunder@vanqard.com)

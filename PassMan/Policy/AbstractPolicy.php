@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vanqard\PassMan\Policy;
 
 /**
@@ -7,95 +10,55 @@ namespace Vanqard\PassMan\Policy;
  */
 abstract class AbstractPolicy implements PolicyInterface
 {
-    /**
-     * @var int
-     */
-    protected $minLength = 8;
+    protected int $minLength = 8;
 
-    /**
-     * @var int
-     */
-    protected $minLowerCase = 0;
+    protected int $minLowerCase = 0;
 
-    /**
-     * @var int
-     */
-    protected $minUpperCase = 0;
+    protected int $minUpperCase = 0;
 
-    /**
-     * @var int
-     */
-    protected $minNumeric = 0;
+    protected int $minNumeric = 0;
 
-    /**
-     * @var int
-     */
-    protected $minSymbols = 0;
+    protected int $minSymbols = 0;
 
-    /**
-     * @var string
-     */
-    protected $rawPassword;
+    protected string $rawPassword = '';
 
-    /**
-     * @param $minLength
-     */
-    public function setMinLength($minLength)
+    public function setMinLength(int $minLength): void
     {
-        $this->minLength = (int) $minLength;
+        $this->minLength = $minLength;
     }
 
-    /**
-     * @param $minLowerCase
-     */
-    public function setMinLowerCase($minLowerCase)
+    public function setMinLowerCase(int $minLowerCase): void
     {
-        $this->minLowerCase = (int) $minLowerCase;
+        $this->minLowerCase = $minLowerCase;
     }
 
-    /**
-     * @param $minUpperCase
-     */
-    public function setMinUpperCase($minUpperCase)
+    public function setMinUpperCase(int $minUpperCase): void
     {
-        $this->minUpperCase = (int) $minUpperCase;
+        $this->minUpperCase = $minUpperCase;
     }
 
-    /**
-     * @param $minNumeric
-     */
-    public function setMinNumeric($minNumeric)
+    public function setMinNumeric(int $minNumeric): void
     {
-        $this->minNumeric = (int) $minNumeric;
+        $this->minNumeric = $minNumeric;
     }
 
-    /**
-     * @param $minSymbols
-     */
-    public function setMinSymbols($minSymbols)
+    public function setMinSymbols(int $minSymbols): void
     {
-        $this->minSymbols = (int) $minSymbols;
+        $this->minSymbols = $minSymbols;
     }
 
-    /**
-     * @param string $rawPassword
-     */
-    public function setRawPassword($rawPassword)
+    public function setRawPassword(string $rawPassword): void
     {
         $this->rawPassword = $rawPassword;
     }
 
-    /**
-     * @return string
-     */
-    public function getRawPassword()
+    public function getRawPassword(): string
     {
         return $this->rawPassword;
     }
 
     /**
-     * @return bool
      * @throws PolicyException
      */
-    abstract public function validatePassword();
+    abstract public function validatePassword(): bool;
 }

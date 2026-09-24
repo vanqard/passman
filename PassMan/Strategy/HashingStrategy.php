@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vanqard\PassMan\Strategy;
 
 /**
- * Interface specification for the Algorithm strategy implementations consumed by the 
- * PasswordManager instance in this package 
- * 
+ * Interface specification for the Algorithm strategy implementations consumed by the
+ * PasswordManager instance in this package
+ *
  * @author Thunder Raven-Stoker <thunder@vanqard.com>
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright 2015 Thunder Raven-Stoker
@@ -12,22 +15,13 @@ namespace Vanqard\PassMan\Strategy;
 interface HashingStrategy
 {
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      */
-    public function setOptions(array $options = array());
+    public function setOptions(array $options = []): static;
 
-    /**
-     * @param string $optionName
-     */
-    public function getOption($optionName);
+    public function getOption(string $optionName): mixed;
 
-    /**
-     * @param string $rawPassword
-     */
-    public function passwordHash($rawPassword);
-    
-    /**
-     * @param string $hashedPassword
-     */
-    public function passwordNeedsRehash($hashedPassword);
+    public function passwordHash(string $rawPassword): string;
+
+    public function passwordNeedsRehash(string $hashedPassword): bool;
 }
